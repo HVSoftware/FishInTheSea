@@ -50,22 +50,20 @@ class FishService
 
     }
 
-    public function simulate(int $numberOfDays, array $fishesAliveByDay): void
+    public function simulate(int $numberOfDays, array $fishesAliveByDay): int
     {
-        $numberOfFishedDied = $fishesAliveByDay[0];
-        for ($i = 0; $i < count($fishesAliveByDay) - 1; $i++) {
-            $fishesAliveByDay[$i] = $fishesAliveByDay[$i + 1];
-        }
-        unset($fishesAliveByDay[count($fishesAliveByDay) - 1]);
-        $fishesAliveByDay[self::DayWhenFishesAreBorn - 1] += $numberOfFishedDied;
-        $fishesAliveByDay[self::DayWhenNewFishesAreBorn - 1] = $numberOfFishedDied;
-        $this->totalNumberOfFishesDied += $numberOfFishedDied;
-
-        if ($numberOfDays <= 0) {
-            return;
+        for ($day = 0; $day < $numberOfDays; $day++) {
+            $numberOfFishedDied = $fishesAliveByDay[0];
+            for ($i = 0; $i < count($fishesAliveByDay) - 1; $i++) {
+                $fishesAliveByDay[$i] = $fishesAliveByDay[$i + 1];
+            }
+            unset($fishesAliveByDay[count($fishesAliveByDay) - 1]);
+            $fishesAliveByDay[self::DayWhenFishesAreBorn - 1] += $numberOfFishedDied;
+            $fishesAliveByDay[self::DayWhenNewFishesAreBorn - 1] = $numberOfFishedDied;
+            $this->totalNumberOfFishesDied += $numberOfFishedDied;
         }
 
-        $this->simulate(--$numberOfDays, $fishesAliveByDay);
+        return $this->totalNumberOfFishesDied;
     }
 }
 

@@ -18,7 +18,7 @@ class FishService
     private const DayWhenFishesAreBorn = 6;
     private const DayWhenNewFishesAreBorn = 8;
 
-    private int $totalNumberOffFishesDied = 0;
+    private int $totalNumberOfFishesDied = 0;
 
     public function __construct(private readonly LogInterface $logger) {
 
@@ -44,7 +44,7 @@ class FishService
         $this->logger->log(
             sprintf(
                 'Total fished died: %d',
-                $this->totalNumberOffFishesDied
+                $this->totalNumberOfFishesDied
             )
         );
 
@@ -55,7 +55,7 @@ class FishService
         $numberOfFishedDied = array_shift($fishesAliveByDay);
         $fishesAliveByDay[self::DayWhenFishesAreBorn - 1] += $numberOfFishedDied;
         $fishesAliveByDay[self::DayWhenNewFishesAreBorn - 1] = $numberOfFishedDied;
-        $this->totalNumberOffFishesDied += $numberOfFishedDied;
+        $this->totalNumberOfFishesDied += $numberOfFishedDied;
 
         if ($numberOfDays <= 0) {
             return;

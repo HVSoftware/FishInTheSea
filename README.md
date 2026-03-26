@@ -22,10 +22,12 @@ Use an array of size 7 (or 8) to track the number of fish at each "age" (day of 
 
 ### Caching Strategy
 
-The company solution uses caching to store the entire period:
-- For 60 days, store all 60 daily states in cache
-- Return only the number of fish on the last day
-- This avoids recalculating the entire sequence on each request
+Since fish only live 7 days, you only need to track a 7-element array:
+- Each index represents fish at that age (day 1-7)
+- After day 7, fish "shift out" and die
+- No need to store the whole period - just the current 7-day state
+
+The company solution likely cached this 7-day array, not the entire 60-day history.
 
 ### Algorithm
 

@@ -15,10 +15,10 @@ class ConsoleLogger implements LogInterface
 
 class FishService
 {
-    private const DayWhenFishedAreBorn = 6;
-    private const DayWhenNewFishedAreBorn = 8;
+    private const DayWhenFishesAreBorn = 6;
+    private const DayWhenNewFishesAreBorn = 8;
 
-    private int $totalNumberOfFishedDied = 0;
+    private int $totalNumberOffFishesDied = 0;
 
     public function __construct(private readonly LogInterface $logger) {
 
@@ -44,7 +44,7 @@ class FishService
         $this->logger->log(
             sprintf(
                 'Total fished died: %d',
-                $this->totalNumberOfFishedDied
+                $this->totalNumberOffFishesDied
             )
         );
 
@@ -53,9 +53,9 @@ class FishService
     public function simulate(int $numberOfDays, array $fishesAliveByDay): void
     {
         $numberOfFishedDied = array_shift($fishesAliveByDay);
-        $fishesAliveByDay[self::DayWhenFishedAreBorn - 1] += $numberOfFishedDied;
-        $fishesAliveByDay[self::DayWhenNewFishedAreBorn - 1] = $numberOfFishedDied;
-        $this->totalNumberOfFishedDied += $numberOfFishedDied;
+        $fishesAliveByDay[self::DayWhenFishesAreBorn - 1] += $numberOfFishedDied;
+        $fishesAliveByDay[self::DayWhenNewFishesAreBorn - 1] = $numberOfFishedDied;
+        $this->totalNumberOffFishesDied += $numberOfFishedDied;
 
         if ($numberOfDays <= 0) {
             return;
@@ -66,6 +66,7 @@ class FishService
 }
 
 $numberOfDays = $argv[1] ?? 100;
+print "$numberOfDays days\n";
 $fishesAliveByDay = [
     4,
     0,
